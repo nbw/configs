@@ -8,8 +8,8 @@ alias apc="cd ~/appcolony"
 alias ms="cd ~/appcolony/makeshift"
 eval "$(rbenv init -)"
 
-export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
+#export NVM_DIR="$HOME/.nvm"
+#  . "/usr/local/opt/nvm/nvm.sh"
 
 alias brails="bundle exec rails"
 
@@ -47,4 +47,4 @@ ZSH_THEME="pygmalion"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
-"~/.zshrc" 102L, 3221C
+#"~/.zshrc" 102L, 3221C
