@@ -12,6 +12,8 @@ call plug#begin('~/.vim/plugged')
         "        Plug 'vim-ruby/vim-ruby'
 
         Plug 'ctrlpvim/ctrlp.vim'
+
+        Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 "===============================
@@ -40,7 +42,19 @@ set number
 filetype plugin indent on
 " show existing tab with 2 spaces width
 set tabstop=2
-" " when indenting with '>', use 2 spaces width
 set shiftwidth=2
-" " On pressing tab, insert 4 spaces
 set expandtab
+set backspace=indent,eol,start
+set nowrap
+
+set nowrap                      " don't wrap lines
+set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
+set expandtab                   " use spaces, not tabs (optional)
+set backspace=indent,eol,start  " backspace through everything in insert mode
+
+"" Searching
+set hlsearch                    " highlight matches
+set incsearch                   " incremental searching
+set ignorecase                  " searches are case insensitive...
+set smartcase                   " ... unless they contain at least one capital letter
+
