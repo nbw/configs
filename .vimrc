@@ -14,7 +14,13 @@ call plug#begin('~/.vim/plugged')
         Plug 'ctrlpvim/ctrlp.vim'
 
         Plug 'sheerun/vim-polyglot'
+        
+        Plug 'w0ng/vim-hybrid'
+
 call plug#end()
+
+set background=dark
+colorscheme hybrid
 
 "===============================
 " VimFiler
