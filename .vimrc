@@ -25,6 +25,10 @@ set background=dark
 colorscheme hybrid
 
 "===============================
+" Mousemode
+set mouse=a
+
+"===============================
 " VimFiler
 nmap <leader>d :VimFilerExplorer<CR>
 
