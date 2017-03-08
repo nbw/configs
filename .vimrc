@@ -6,8 +6,10 @@
 call plug#begin('~/.vim/plugged')
         Plug 'Shougo/unite.vim'
         Plug 'Shougo/vimfiler.vim'
-
-        Plug 'Lokaltog/vim-powerline'
+        
+        Plug 'vim-airline/vim-airline'
+        Plug 'vim-airline/vim-airline-themes'
+        "        Plug 'Lokaltog/vim-powerline'
 
         "        Plug 'vim-ruby/vim-ruby'
 
@@ -16,7 +18,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'sheerun/vim-polyglot'
         
         Plug 'w0ng/vim-hybrid'
-
+        
 call plug#end()
 
 set background=dark
@@ -30,14 +32,22 @@ nmap <leader>d :VimFilerExplorer<CR>
 " Powerline
 let g:Powerline_symbols = 'fancy'
 
+"=============================
+" Airline
+let g:airline_section_z = '%2p%% %2l/%L:%2v'
+let g:airline#extensions#syntastic#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline_exclude_preview = 1
+let g:airline_powerline_fonts=1
+
 " Movement Mappings
 " ==============================
 
 " Smart way to move between windows. Ctrl-[h,j,k,l]
-nmap <C-j> <C-W>j
-nmap <C-k> <C-W>k
-nmap <C-h> <C-W>h
-nmap <C-l> <C-W>l
+" nmap <C-j> <C-W>j
+" nmap <C-k> <C-W>k
+" nmap <C-h> <C-W>h
+" nmap <C-l> <C-W>l
 
 "=============================
 "Show line number
