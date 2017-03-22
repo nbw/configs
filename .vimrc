@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
         
         Plug 'w0ng/vim-hybrid'
         
+        Plug 'elixir-lang/vim-elixir'
 call plug#end()
 
 set background=dark
