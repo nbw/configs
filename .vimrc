@@ -20,6 +20,9 @@ call plug#begin('~/.vim/plugged')
         Plug 'w0ng/vim-hybrid'
         
         Plug 'elixir-lang/vim-elixir'
+
+        Plug 'rking/ag.vim'
+        
 call plug#end()
 
 set background=dark
@@ -33,6 +36,12 @@ set mouse=a
 " VimFiler
 nmap <leader>d :VimFilerExplorer<CR>
 
+
+"===============================
+" Silver Searcher
+nmap <leader>f :Ag<Space>
+
+
 "==============================
 " Powerline
 let g:Powerline_symbols = 'fancy'
@@ -44,6 +53,24 @@ let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline_exclude_preview = 1
 let g:airline_powerline_fonts=1
+
+"===============================
+" RGREP - Faster grep
+"
+" Note. brew install grep
+
+if executable('rg')
+  " Use ripgrep over Grep
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l%m
+
+  "       " Use rg in CtrlP for listing files. Lightning fast and respects  .gitignore
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob  ""'
+
+  " rg is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
 
 " Movement Mappings
 " ==============================
