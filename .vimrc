@@ -19,6 +19,8 @@ call plug#begin('~/.vim/plugged')
         
         Plug 'w0ng/vim-hybrid'
         
+        Plug 'elixir-lang/vim-elixir'
+
         Plug 'rking/ag.vim'
         
         Plug 'vim-ruby/vim-ruby'
