@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged')
         
         Plug 'rking/ag.vim'
         
+        Plug 'vim-ruby/vim-ruby'
 call plug#end()
 
 set background=dark
@@ -104,3 +105,12 @@ set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
+
+"================================
+" UNDO
+"
+"Undo history
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
