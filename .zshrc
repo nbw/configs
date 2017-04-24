@@ -53,7 +53,7 @@ ZSH_THEME="pygmalion"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-#source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -87,7 +87,13 @@ plugins=(git)
 
 alias brails="bundle exec rails"
 alias brake="bundle exec rake"
+alias bspec="bundle exec rspec"
 alias apc="cd ~/appcolony"
 alias ms="cd ~/appcolony/makeshift"
-eval "$(rbenv init -)"
 
+#eval "$(rbenv init -)"
+
+alias zshreload="source ~/.zshrc"
+
+# for rbenv
+export PATH="$HOME/.rbenv/shims:$PATH"
