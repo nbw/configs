@@ -4,25 +4,26 @@
 " https://github.com/junegunn/vim-plug
 
 call plug#begin('~/.vim/plugged')
-        Plug 'Shougo/unite.vim'
-        Plug 'Shougo/vimfiler.vim'
-        
-        Plug 'vim-airline/vim-airline'
-        Plug 'vim-airline/vim-airline-themes'
-        "        Plug 'Lokaltog/vim-powerline'
+  Plug 'Shougo/unite.vim'
+  Plug 'Shougo/vimfiler.vim'
 
-        "        Plug 'vim-ruby/vim-ruby'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  "        Plug 'Lokaltog/vim-powerline'
+  "
+  "                "        Plug 'vim-ruby/vim-ruby'
+  "
+  Plug 'ctrlpvim/ctrlp.vim'
 
-        Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'sheerun/vim-polyglot'
 
-        Plug 'sheerun/vim-polyglot'
-        
-        Plug 'w0ng/vim-hybrid'
-        
-        Plug 'elixir-lang/vim-elixir'
+  Plug 'w0ng/vim-hybrid'
 
-        Plug 'rking/ag.vim'
-        
+  Plug 'elixir-lang/vim-elixir'
+
+  Plug 'rking/ag.vim'
+
+  Plug 'vim-ruby/vim-ruby'
 call plug#end()
 
 set background=dark
@@ -106,3 +107,4 @@ set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
+set noswapfile
