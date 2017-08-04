@@ -91,9 +91,18 @@ alias bspec="bundle exec rspec"
 alias apc="cd ~/appcolony"
 alias ms="cd ~/appcolony/makeshift"
 
+alias vim="/usr/local/bin/vim"
+
+alias ctags="`brew --prefix`/bin/ctags"
+
+
 #eval "$(rbenv init -)"
 
 alias zshreload="source ~/.zshrc"
 
 # for rbenv
 export PATH="$HOME/.rbenv/shims:$PATH"
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash

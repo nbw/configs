@@ -24,6 +24,14 @@ call plug#begin('~/.vim/plugged')
         Plug 'rking/ag.vim'
         
         Plug 'vim-ruby/vim-ruby'
+        
+        Plug 'tpope/vim-surround'
+        Plug 'tpope/vim-commentary'
+        Plug 'tpope/vim-fugitive'
+
+        Plug 'craigemery/vim-autotag'
+
+        Plug 'w0rp/ale'
 call plug#end()
 
 set background=dark
@@ -35,8 +43,8 @@ set mouse=a
 
 "===============================
 " VimFiler
-nmap <leader>d :VimFilerExplorer<CR>
-
+" nmap <leader>d :VimFilerExplorer<CR>
+nmap <leader>d :VimFilerBufferDir -explorer<CR>
 
 "===============================
 " Silver Searcher
@@ -81,9 +89,13 @@ endif
 " nmap <C-k> <C-W>k
 " nmap <C-h> <C-W>h
 " nmap <C-l> <C-W>l
+nmap <C-k> <C-u>
+nmap <C-j> <C-d>
 
 "=============================
 "Show line number
+"
+" set relativenumber
 set number
 
 "==============================
@@ -107,6 +119,8 @@ set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 
+" Do NOT use a swapfile for the buffer.
+set noswapfile
 
 "================================
 " UNDO
@@ -116,3 +130,15 @@ set undofile                " Save undo's after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
+
+
+"================================
+" Cursor Color
+"
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
