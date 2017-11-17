@@ -88,6 +88,8 @@ source $ZSH/oh-my-zsh.sh
 alias brails="bundle exec rails"
 alias brake="bundle exec rake"
 alias bspec="bundle exec rspec"
+alias bein="bundle exec i18n-tasks normalize"
+alias beim="bundle exec i18n-tasks missing"
 alias apc="cd ~/appcolony"
 alias ms="cd ~/appcolony/makeshift"
 

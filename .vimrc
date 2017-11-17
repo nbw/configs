@@ -25,6 +25,8 @@ call plug#begin('~/.vim/plugged')
         
         Plug 'vim-ruby/vim-ruby'
         
+        Plug 'tpope/vim-rails'
+        
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-commentary'
         Plug 'tpope/vim-fugitive'
@@ -32,10 +34,19 @@ call plug#begin('~/.vim/plugged')
         Plug 'craigemery/vim-autotag'
 
         Plug 'w0rp/ale'
+
+        Plug 'stefanoverna/vim-i18n'
 call plug#end()
 
 set background=dark
 colorscheme hybrid
+
+"================================
+" Internationalization
+"
+vmap <Leader>i :call I18nTranslateString()<CR>
+vmap <Leader>dt :call I18nDisplayTranslation()<CR>
+
 
 "===============================
 " Mousemode
@@ -65,21 +76,17 @@ let g:airline_powerline_fonts=1
 
 "===============================
 " RGREP - Faster grep
-"
-" Note. brew install grep
-
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('rg')
   " Use ripgrep over Grep
   set grepprg=rg\ --vimgrep\ --no-heading
   set grepformat=%f:%l:%c:%m,%f:%l%m
 
-  "       " Use rg in CtrlP for listing files. Lightning fast and respects  .gitignore
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob  ""'
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 
   " rg is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
-
 
 " Movement Mappings
 " ==============================
@@ -142,3 +149,4 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+
