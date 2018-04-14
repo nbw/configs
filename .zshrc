@@ -97,9 +97,6 @@ alias vim="/usr/local/bin/vim"
 
 alias ctags="`brew --prefix`/bin/ctags"
 
-
-#eval "$(rbenv init -)"
-
 alias zshreload="source ~/.zshrc"
 
 # for rbenv
@@ -108,3 +105,26 @@ export PATH="$HOME/.rbenv/shims:$PATH"
 . $HOME/.asdf/asdf.sh
 
 . $HOME/.asdf/completions/asdf.bash
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+# ruby permissions issue https://github.com/rbenv/rbenv/issues/938
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+alias i18n="bundle exec i18n-tasks normalize && bundle exec i18n-tasks missing &"
+alias dbreset="bundle exec rake db:drop && bundle exec rake db:create && bundle exec rake db:migrate && bundle exec rake db:seed &"
+
+export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+alias myserver="ssh root@162.243.128.245"
+alias glenserver="ssh root@159.203.27.109"
+alias dadserver="ssh root@138.68.13.85"
+
+# for golang
+export GOPATH=$HOME/go
+export PATH="$GOPATH/bin:$PATH"

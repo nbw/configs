@@ -150,3 +150,6 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+"https://stackoverflow.com/questions/16134457/insert-a-newline-without-entering-in-insert-mode-vim"
+nmap oo m`o<Esc>``
+nmap OO m`O<Esc>``
