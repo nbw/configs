@@ -1,0 +1,304 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Nathan Willson
+#+EMAIL: contact@nathanwillson.com
+
+Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][config]]. 
+
+* Basic Emacs Config
+** Hide the Toolbar
+   #+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+   #+END_SRC
+
+** Remove scrollbars
+   #+BEGIN_SRC emacs-lisp
+  (scroll-bar-mode -1)
+   #+END_SRC
+
+** Word wrap
+   #+BEGIN_SRC emacs-lisp
+  (setq-default truncate-lines 1)
+   #+END_SRC
+
+** Display line numbers
+   #+BEGIN_SRC emacs-lisp
+  (global-linum-mode t)
+  (setq linum-format "%d ")
+   #+END_SRC
+
+** Set the font
+   #+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(font . "Monaco" ))
+  (set-face-attribute 'default t :font "Monaco" )
+   #+END_SRC
+
+** Spaces not tabs
+   #+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+   #+END_SRC
+* Handy functions
+** Open .emacs.d/configuration.org file
+   #+BEGIN_SRC emacs-lisp
+
+  (defun config-file ()
+    (interactive)
+      (find-file "~/.emacs.d/configuration.org")
+  )
+   #+END_SRC
+   
+** Open .emacs file 
+
+   #+BEGIN_SRC emacs-lisp
+  (defun emacs-file ()
+  (interactive)
+  (find-file "~/.emacs")
+  )
+   #+END_SRC
+
+** Ctags
+   #+BEGIN_SRC emacs-lisp
+  (setq path-to-ctags "/usr/local/bin/ctags") 
+
+  (defun create-tags (dir-name)
+    "Create tags file."
+    (interactive "DDirectory: ")
+    (shell-command
+     (format "%s -f TAGS -e -R %s" path-to-ctags (directory-file-name dir-name)))
+  )
+   #+END_SRC
+
+* Themes
+  
+  To choose a theme use `M-x load-theme`.
+  
+** Color Theme
+   #+BEGIN_SRC emacs-lisp
+  (use-package color-theme-sanityinc-tomorrow
+    :ensure t
+  )
+   #+END_SRC
+** Powerline with Airline themes
+   
+   For Airline, I use _airline-base16-shell-dark_ iirc.
+   
+*** Install & Configure 
+    #+BEGIN_SRC emacs-lisp
+  (use-package powerline
+    :ensure t
+    :config
+    (powerline-vim-theme))
+
+  (use-package airline-themes
+    :ensure t)
+    #+END_SRC
+   
+* Evil Mode
+  
+  Vim for Emacs! There are a bunch of sub-packages too like Surround, Commentary, etc.
+  
+*** Install & Configure
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1)
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up) ;; up in vim
+  (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-insert-state-map (kbd "C-u")
+    (lambda ()
+      (interactive)
+    (evil-delete (point-at-bol) (point))))
+  )
+#+END_SRC  
+
+
+** Evil Surround
+   
+   Tim Pope's surround ported to emacs.
+
+*** Usage
+   Refer to [[https://github.com/tpope/vim-surround][Surround Vim]]. 
+
+*** Install & Configure
+    #+BEGIN_SRC emacs-lisp
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode))
+    #+END_SRC
+
+** Evil Commentary
+   
+   Time pope's commentary ported to emacs.
+   
+*** Usage
+    Refer to [[https://github.com/tpope/vim-commentary][Commentary]].
+    
+*** Install & Configure
+    
+    #+BEGIN_SRC emacs-lisp
+  (use-package evil-commentary
+    :ensure t
+    :config
+    (evil-commentary-mode))
+    #+END_SRC
+    
+** Evil Leader
+   
+   Evil Leader provides the <leader> feature
+   from Vim that provides an easy way to bind
+   keys under a variable prefix key.
+   
+*** Install & Configure 
+    
+    #+BEGIN_SRC emacs-lisp
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode))
+    #+END_SRC
+* Org Mode
+*** Install & Config
+    #+BEGIN_SRC emacs-lisp
+  (require 'org)
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (setq org-log-done t)
+    #+END_SRC
+** Org Bullets
+   Make the bullets look pretty!
+   
+*** Install & Config
+    #+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    #+END_SRC
+    
+* Major Modes
+  
+  A bunch of modes are included with emacs by default, like Ruby and Org Mode.
+  
+** Markdown Mode
+   #+BEGIN_SRC emacs-lisp
+ (use-package markdown-mode
+    :ensure t)
+   #+END_SRC
+** Elixir Mode
+   #+BEGIN_SRC emacs-lisp
+ (use-package elixir-mode
+    :ensure t)
+   #+END_SRC
+** Go Mode
+   #+BEGIN_SRC emacs-lisp
+ (use-package go-mode
+    :ensure t)
+   #+END_SRC
+** Yaml Mode
+   #+BEGIN_SRC emacs-lisp
+ (use-package yaml-mode
+    :ensure t)
+   #+END_SRC
+   
+* Helm and Projectile
+  Helm and Projectile do different things, but
+  they complement each other.
+  
+  Projectile does the searching and parsing. One of it's features is
+  basically the Ctrl-P of emacs.
+  
+  Helm sits on top of Projectile and displays 
+  everything better.
+  
+** Projectile
+   
+*** Install & Configure
+   #+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :defer t
+    :config
+    (projectile-global-mode))
+   #+END_SRC
+   
+** Helm
+   
+   Sits on top of _find files_ (C-x C-f), M-x, tab, C-i, and C-z 
+   
+*** Install & Configure
+    #+BEGIN_SRC  emacs-lisp
+  (use-package helm
+    :ensure t
+    :config
+    (helm-mode 1)
+    (setq helm-autoresize-mode t)
+    (global-set-key (kbd "C-x C-f") #'helm-find-files)
+    (global-set-key (kbd "M-x") #'helm-M-x)
+    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+    (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+  )
+    #+END_SRC
+    
+** Helm Projectile
+   
+   For that Ctrl-P feel!
+   
+   Note: requires `subr-x` to get _helm-projectile-find-file_ working.
+   
+*** Install & Configure
+   #+BEGIN_SRC 
+   (use-package helm-projectile
+     :bind (("C-S-P" . helm-projectile-switch-project)
+            :map evil-normal-state-map
+            ("C-p" . helm-projectile-find-file))
+     :ensure t
+   )
+
+   (require 'subr-x)
+   #+END_SRC
+
+* Magit
+  Git manager for emacs. 
+  
+*** Usage
+    To open: `C-x g`
+  
+    Good intro how-to article [[https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git][here]].
+
+*** Install & Configure
+    #+BEGIN_SRC emacs-lisp
+   (use-package magit
+     :ensure t)
+
+   (global-set-key (kbd "C-x g") 'magit-status)
+    #+END_SRC
+    
+* NeoTree
+  A folder file viewer. NerdTree for Emacs.
+
+** Usage
+   `C-x t` to toggle open.
+
+*** Install & Configure
+    #+BEGIN_SRC emacs-lisp
+   (use-package neotree
+     :ensure t
+     :config
+    )
+
+   (setq neo-theme 'ascii)
+
+   (setq projectile-switch-project-action 'neotree-projectile-action)
+   (global-set-key (kbd "C-x t") 'neotree-toggle)
+    #+END_SRC
+
+** NeoTree Evil Configure
+
+    #+BEGIN_SRC emacs-lisp
+  (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+    #+END_SRC
