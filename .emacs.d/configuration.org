@@ -176,6 +176,13 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     #+END_SRC
     
+** Bootstrap Exporting
+*** Install & Config
+    #+BEGIN_SRC emacs-lisp
+  (use-package ox-twbs
+    :ensure t)
+    #+END_SRC
+    
 * Major Modes
   
   A bunch of modes are included with emacs by default, like Ruby and Org Mode.
@@ -248,7 +255,7 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
    Note: requires `subr-x` to get _helm-projectile-find-file_ working.
    
 *** Install & Configure
-   #+BEGIN_SRC 
+   #+BEGIN_SRC emacs-lisp
    (use-package helm-projectile
      :bind (("C-S-P" . helm-projectile-switch-project)
             :map evil-normal-state-map
