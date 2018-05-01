@@ -1,8 +1,8 @@
-#+TITLE: Emacs Configuration
+#+Title: Emacs Configuration
 #+AUTHOR: Nathan Willson
 #+EMAIL: contact@nathanwillson.com
 
-Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][config]]. 
+Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org][config]].
 
 * Basic Emacs Config
 ** Hide the Toolbar
@@ -36,6 +36,18 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
    #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
    #+END_SRC
+
+** Remove sound
+   #+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+   #+END_SRC
+
+** Trailing whitespace
+Remove trailing whitespace on save
+   #+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+  #+END_SRC
+
 * Handy functions
 ** Open .emacs.d/configuration.org file
    #+BEGIN_SRC emacs-lisp
@@ -45,8 +57,8 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
       (find-file "~/.emacs.d/configuration.org")
   )
    #+END_SRC
-   
-** Open .emacs file 
+
+** Open .emacs file
 
    #+BEGIN_SRC emacs-lisp
   (defun emacs-file ()
@@ -57,7 +69,7 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
 
 ** Ctags
    #+BEGIN_SRC emacs-lisp
-  (setq path-to-ctags "/usr/local/bin/ctags") 
+  (setq path-to-ctags "/usr/local/bin/ctags")
 
   (defun create-tags (dir-name)
     "Create tags file."
@@ -68,9 +80,9 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
    #+END_SRC
 
 * Themes
-  
+
   To choose a theme use `M-x load-theme`.
-  
+
 ** Color Theme
    #+BEGIN_SRC emacs-lisp
   (use-package color-theme-sanityinc-tomorrow
@@ -78,10 +90,10 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
   )
    #+END_SRC
 ** Powerline with Airline themes
-   
+
    For Airline, I use _airline-base16-shell-dark_ iirc.
-   
-*** Install & Configure 
+
+*** Install & Configure
     #+BEGIN_SRC emacs-lisp
   (use-package powerline
     :ensure t
@@ -91,11 +103,11 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
   (use-package airline-themes
     :ensure t)
     #+END_SRC
-   
+
 * Evil Mode
-  
+
   Vim for Emacs! There are a bunch of sub-packages too like Surround, Commentary, etc.
-  
+
 *** Install & Configure
 
 #+BEGIN_SRC emacs-lisp
@@ -110,15 +122,15 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
       (interactive)
     (evil-delete (point-at-bol) (point))))
   )
-#+END_SRC  
+#+END_SRC
 
 
 ** Evil Surround
-   
+
    Tim Pope's surround ported to emacs.
 
 *** Usage
-   Refer to [[https://github.com/tpope/vim-surround][Surround Vim]]. 
+   Refer to [[https://github.com/tpope/vim-surround][Surround Vim]].
 
 *** Install & Configure
     #+BEGIN_SRC emacs-lisp
@@ -129,29 +141,29 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
     #+END_SRC
 
 ** Evil Commentary
-   
+
    Time pope's commentary ported to emacs.
-   
+
 *** Usage
     Refer to [[https://github.com/tpope/vim-commentary][Commentary]].
-    
+
 *** Install & Configure
-    
+
     #+BEGIN_SRC emacs-lisp
   (use-package evil-commentary
     :ensure t
     :config
     (evil-commentary-mode))
     #+END_SRC
-    
+
 ** Evil Leader
-   
+
    Evil Leader provides the <leader> feature
    from Vim that provides an easy way to bind
    keys under a variable prefix key.
-   
-*** Install & Configure 
-    
+
+*** Install & Configure
+
     #+BEGIN_SRC emacs-lisp
   (use-package evil-leader
     :ensure t
@@ -165,21 +177,57 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
+  (setq org-startup-indented t)
     #+END_SRC
 ** Org Bullets
    Make the bullets look pretty!
-   
+
 *** Install & Config
     #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     #+END_SRC
-    
+
+** Bootstrap Exporting
+*** Install & Config
+    #+BEGIN_SRC emacs-lisp
+  (use-package ox-twbs
+    :ensure t)
+  (setq org-publish-project-alist
+      '(("org-notes"
+         :base-directory "~/org/"
+         :publishing-directory "~/public_html/"
+         :publishing-function org-twbs-publish-to-html
+         :with-sub-superscript nil
+         )))
+    #+END_SRC
+
+** Git Flavoured Markdown Exporting
+*** Install & Config
+    #+BEGIN_SRC emacs-lisp
+  (use-package ox-gfm
+    :ensure t)
+
+  (setq org-publish-project-alist
+      '(("org-notes"
+         :base-directory "~/org/"
+         :publishing-directory "~/public_html/"
+         :publishing-function org-gfm-export-to-markdown
+         :with-sub-superscript nil
+         )))
+    #+END_SRC
+
 * Major Modes
-  
+
   A bunch of modes are included with emacs by default, like Ruby and Org Mode.
-  
+
+** Ruby Mode
+   By default emacs already comes with a Ruby mode, but there are a few settings to adjust.
+
+   #+BEGIN_SRC emacs-lisp
+   (setq ruby-insert-encoding-magic-comment nil)
+   #+END_SRC
 ** Markdown Mode
    #+BEGIN_SRC emacs-lisp
  (use-package markdown-mode
@@ -190,6 +238,37 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
  (use-package elixir-mode
     :ensure t)
    #+END_SRC
+** PO Mode
+   Use for Portable Object Template files, or a .pot file, which is used by gettext (in Elixir)
+
+   Also using a function defined [[https://www.emacswiki.org/emacs/PoMode][here]] for limiting lines to 80  characters.
+
+#+BEGIN_SRC emacs-lisp
+ (use-package po-mode
+    :ensure t)
+
+(defun po-wrap ()
+       "Filter current po-mode buffer through `msgcat' tool to wrap all lines."
+       (interactive)
+       (if (eq major-mode 'po-mode)
+           (let ((tmp-file (make-temp-file "po-wrap."))
+     	    (tmp-buf (generate-new-buffer "*temp*")))
+     	(unwind-protect
+     	    (progn
+     	      (write-region (point-min) (point-max) tmp-file nil 1)
+     	      (if (zerop
+     		   (call-process
+     		    "msgcat" nil tmp-buf t (shell-quote-argument tmp-file)))
+     		  (let ((saved (point))
+     			(inhibit-read-only t))
+     		    (delete-region (point-min) (point-max))
+     		    (insert-buffer tmp-buf)
+     		    (goto-char (min saved (point-max))))
+     		(with-current-buffer tmp-buf
+     		  (error (buffer-string)))))
+     	  (kill-buffer tmp-buf)
+     	  (delete-file tmp-file)))))
+#+END_SRC
 ** Go Mode
    #+BEGIN_SRC emacs-lisp
  (use-package go-mode
@@ -200,19 +279,19 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
  (use-package yaml-mode
     :ensure t)
    #+END_SRC
-   
+
 * Helm and Projectile
   Helm and Projectile do different things, but
   they complement each other.
-  
+
   Projectile does the searching and parsing. One of it's features is
   basically the Ctrl-P of emacs.
-  
-  Helm sits on top of Projectile and displays 
+
+  Helm sits on top of Projectile and displays
   everything better.
-  
+
 ** Projectile
-   
+
 *** Install & Configure
    #+BEGIN_SRC emacs-lisp
   (use-package projectile
@@ -221,11 +300,11 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
     :config
     (projectile-global-mode))
    #+END_SRC
-   
+
 ** Helm
-   
-   Sits on top of _find files_ (C-x C-f), M-x, tab, C-i, and C-z 
-   
+
+   Sits on top of _find files_ (C-x C-f), M-x, tab, C-i, and C-z
+
 *** Install & Configure
     #+BEGIN_SRC  emacs-lisp
   (use-package helm
@@ -240,15 +319,15 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
     (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
   )
     #+END_SRC
-    
+
 ** Helm Projectile
-   
+
    For that Ctrl-P feel!
-   
+
    Note: requires `subr-x` to get _helm-projectile-find-file_ working.
-   
+
 *** Install & Configure
-   #+BEGIN_SRC 
+   #+BEGIN_SRC emacs-lisp
    (use-package helm-projectile
      :bind (("C-S-P" . helm-projectile-switch-project)
             :map evil-normal-state-map
@@ -259,12 +338,32 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
    (require 'subr-x)
    #+END_SRC
 
+** Helm Ag
+   Silver searcher for emacs. I got errors with this one, so [[https://github.com/syl20bnr/spacemacs/issues/7868][this]] page is a good reference.
+
+   Note: Install Ag locally too.
+
+*** Install & Configure
+
+   #+BEGIN_SRC emacs-lisp
+
+   (use-package pt
+     :ensure t)
+
+   (use-package helm-ag
+     :ensure t
+     :config
+     (custom-set-variables
+        '(helm-ag-base-command "pt -e --nocolor --nogroup")))
+
+   #+END_SRC
+
 * Magit
-  Git manager for emacs. 
-  
+  Git manager for emacs.
+
 *** Usage
     To open: `C-x g`
-  
+
     Good intro how-to article [[https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git][here]].
 
 *** Install & Configure
@@ -274,7 +373,7 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
 
    (global-set-key (kbd "C-x g") 'magit-status)
     #+END_SRC
-    
+
 * NeoTree
   A folder file viewer. NerdTree for Emacs.
 
@@ -291,7 +390,7 @@ Based on Harry Schwartz's [[https://github.com/hrs/dotfiles/blob/master/emacs/.e
    (setq neo-theme 'ascii)
 
    (setq projectile-switch-project-action 'neotree-projectile-action)
-   (global-set-key (kbd "C-x t") 'neotree-toggle)
+   (global-set-key (kbd "C-x \\") 'neotree-toggle)
     #+END_SRC
 
 ** NeoTree Evil Configure
