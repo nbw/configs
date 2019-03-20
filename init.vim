@@ -1,3 +1,5 @@
+" Neo vim configs
+"
 " =======================================================
 "     Vim-Plug
 " =======================================================
@@ -6,27 +8,25 @@
 call plug#begin('~/.vim/plugged')
         Plug 'Shougo/unite.vim'
         Plug 'Shougo/vimfiler.vim'
-        
+
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
-        "        Plug 'Lokaltog/vim-powerline'
-
-        "        Plug 'vim-ruby/vim-ruby'
-
-        Plug 'ctrlpvim/ctrlp.vim'
 
         Plug 'sheerun/vim-polyglot'
-        
+
         Plug 'w0ng/vim-hybrid'
-        
+
         Plug 'elixir-lang/vim-elixir'
 
         Plug 'rking/ag.vim'
-        
+
         Plug 'vim-ruby/vim-ruby'
-        
+
         Plug 'tpope/vim-rails'
-        
+        Plug 'janko-m/vim-test'
+
+        Plug 'thoughtbot/vim-rspec'
+
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-commentary'
         Plug 'tpope/vim-fugitive'
@@ -36,6 +36,9 @@ call plug#begin('~/.vim/plugged')
         Plug 'w0rp/ale'
 
         Plug 'stefanoverna/vim-i18n'
+
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf.vim'
 call plug#end()
 
 set background=dark
@@ -61,9 +64,15 @@ nmap <leader>d :VimFilerBufferDir -explorer<CR>
 " Silver Searcher
 nmap <leader>f :Ag<Space>
 
+"===============================
+" Fzy search
+nmap <C-p> :FZF<CR>
+nmap <C-b> :Buffers<CR>
+
 
 "==============================
 " Powerline
+"
 set encoding=utf-8
 set guifont=Source\ Code\ Pro\ for\ Powerline
 let g:Powerline_symbols = 'fancy'
@@ -74,7 +83,7 @@ let g:airline_section_z = '%2p%% %2l/%L:%2v'
 let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline_exclude_preview = 1
-let g:airline_powerline_fonts=1
+" let g:airline_powerline_fonts=1
 
 "===============================
 " RGREP - Faster grep
@@ -107,20 +116,6 @@ nmap <C-j> <C-d>
 " set relativenumber
 set number
 
-"==============================
-" Tabs to spaces "
-filetype plugin indent on
-" show existing tab with 2 spaces width
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set backspace=indent,eol,start
-set nowrap
-
-set nowrap                      " don't wrap lines
-set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
-set expandtab                   " use spaces, not tabs (optional)
-set backspace=indent,eol,start  " backspace through everything in insert mode
 
 "" Searching
 set hlsearch                    " highlight matches
@@ -155,3 +150,25 @@ endif
 "https://stackoverflow.com/questions/16134457/insert-a-newline-without-entering-in-insert-mode-vim"
 nmap oo m`o<Esc>``
 nmap OO m`O<Esc>``
+
+
+"================================
+" Copy current file's path using 'cp'
+"
+nmap cp :let @" = expand("%")<cr>
+
+"==============================
+" Tabs to spaces "
+filetype plugin indent on
+" show existing tab with 2 spaces width
+set tabstop=2 shiftwidth=2 expandtab
+set backspace=indent,eol,start
+set nowrap
+
+"================================
+" Remove whitespace on save
+"
+autocmd BufWritePre * %s/\s\+$//e
+runtime macros/matchit.vim
+
+
