@@ -94,7 +94,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
-alias vim="/usr/local/bin/vim"
+alias vim="nvim"
 
 alias zshreload="source ~/.zshrc"
 
