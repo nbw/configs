@@ -1,6 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Save history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/nwillson/.oh-my-zsh
 
@@ -14,7 +20,6 @@ ZSH_THEME=""
 autoload -U promptinit; promptinit
 
 prompt pure
-
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -62,7 +67,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -98,16 +103,18 @@ alias vim="nvim"
 
 alias zshreload="source ~/.zshrc"
 
-. $HOME/.asdf/asdf.sh
+autoload -Uz compinit
+compinit
 
+. $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
-export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+# export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+# For asdf ruby
+export PATH="~/.asdf/installs/ruby/:$PATH"
 
 export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
-
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
 
 alias myserver="ssh root@162.243.128.245"
 alias glenserver="ssh root@159.203.27.109"
@@ -183,6 +190,10 @@ export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$
 # %{$GREEN%}$(git rev-parse --abbrev-ref HEAD 2> /dev/null)$(git_prompt_short_sha)$(parse_git_dirty)%{$RESET_COLOR%}
 # %(?.%{$fg[green]%}.%{$fg[red]%})%B$%b '
 # # RPROMPT='[%{$GREEN%}$(ruby --version | cut -d " " -f 2)%{$WHITE%}]'
+#
+#
+alias weather='curl -4 wttr.in/'
+
+alias bspec='bundle exec rspec'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
