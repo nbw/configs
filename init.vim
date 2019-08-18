@@ -15,6 +15,8 @@ call plug#begin('~/.vim/plugged')
         Plug 'sheerun/vim-polyglot'
 
         Plug 'w0ng/vim-hybrid'
+        Plug 'rakr/vim-one'
+        Plug 'ayu-theme/ayu-vim'
 
         Plug 'elixir-lang/vim-elixir'
 
@@ -39,11 +41,23 @@ call plug#begin('~/.vim/plugged')
         Plug 'junegunn/fzf.vim'
 call plug#end()
 
+" DARK MODE
 set background=dark
 colorscheme hybrid
 
+" ONE LIGHT MODE
+" set background=light
+" colorscheme one
+"
+
+" AYU LIGHT MODE
+" set termguicolors     " enable true colors support
+" let ayucolor="light"  " for light version of theme
+" colorscheme ayu
+
+
 "===============================
-" Mousemode
+w0ng/vim-hybrid" Mousemode
 set mouse=a
 
 "===============================
@@ -155,6 +169,14 @@ filetype plugin indent on
 set tabstop=2 shiftwidth=2 expandtab
 set backspace=indent,eol,start
 set nowrap
+
+fu! ResetSpaces()
+  set tabstop=2 shiftwidth=2 expandtab
+  %retab!
+endfunction
+
+autocmd BufWritePre *.js,*.ex,*.exs,*.html,*.rb :call ResetSpaces()
+
 
 "================================
 " Remove whitespace on save
