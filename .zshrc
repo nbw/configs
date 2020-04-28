@@ -2,6 +2,14 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Save history
+
+# avoid duplicates..
+export HISTCONTROL=ignoredups:erasedups
+# append history entries..
+# shopt -s histappend
+# After each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -195,5 +203,8 @@ export PS1='${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[blue]%}%c%{$
 alias weather='curl -4 wttr.in/'
 
 alias bspec='bundle exec rspec'
+alias brails='bundle exec rails'
+
+alias h="htop"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
