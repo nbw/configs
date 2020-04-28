@@ -3,7 +3,7 @@
 # specify a directory to install
 cask_args appdir: '/Applications'
 
-tap 'caskroom/homebrew-cask' || true
+tap 'homebrew/cask-cask' || true
 tap "homebrew/bundle"
 tap "homebrew/core"
 
