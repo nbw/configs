@@ -57,7 +57,7 @@ colorscheme hybrid
 
 
 "===============================
-w0ng/vim-hybrid" Mousemode
+" w0ng/vim-hybrid" Mousemode
 set mouse=a
 
 "===============================

@@ -3,9 +3,11 @@
 # specify a directory to install
 cask_args appdir: '/Applications'
 
-tap 'homebrew/cask-cask' || true
+# tap 'homebrew/cask-cask' || true
 tap "homebrew/bundle"
 tap "homebrew/core"
+
+brew "cask"
 
 # System Deps
 brew "autoconf"
@@ -42,6 +44,7 @@ brew "z"
 brew "asdf"
 
 # Services
+tap "heroku/brew"
 brew "heroku"
 brew "hub"
 brew "s3cmd"
@@ -51,9 +54,9 @@ brew "awsebcli"
 #cask "postgres" # prefer Postgres.app
 brew "mysql", restart_service: true
 brew "redis"
-brew "mongodb"
+# brew "mongodb"
 brew "memcached"
-brew "elasticsearch"
+# brew "elasticsearch"
 cask "postgres"
 
 # editor
@@ -71,4 +74,3 @@ cask 'google-chrome'
 cask 'insomnia'
 cask 'iterm2'
 cask 'slack'
-cask 'spark'
