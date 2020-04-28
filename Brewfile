@@ -38,14 +38,6 @@ brew "tmux"
 brew "reattach-to-user-namespace"
 brew "z"
 
-# Languages
-brew "rbenv"
-brew "node"
-brew "elixir"
-cask "dotnet"
-cask 'java'
-
-
 # Runtime Switchers
 brew "asdf"
 
@@ -62,28 +54,21 @@ brew "redis"
 brew "mongodb"
 brew "memcached"
 brew "elasticsearch"
+cask "postgres"
 
-# Editor
+# editor
 tap 'neovim/neovim' || true
 brew 'neovim'
-cask 'atom'
+cask 'visual-studio-code'
 
 # Applications
-#cask 'iterm2'
-#cask 'google-chrome'
-#cask '1password'
-#cask 'dropbox'
-#cask 'virtualbox'
-#cask 'docker'
-#cask 'slack'
-#cask 'spotify'
-#cask 'postman'
-
-# Client GUIs
-#cask "fork" # Git
-#cask "postico" # Postgres
-#cask "sequel-pro" # MySql
-#cask "commander-one" # S3/FTP
-#cask "robo-3t" # MongoDB
-
-#cask "amethyst"
+cask '1password'
+cask 'bettertouchtool'
+cask 'docker'
+cask 'dropbox'
+cask 'fantastical'
+cask 'google-chrome'
+cask 'insomnia'
+cask 'iterm2'
+cask 'slack'
+cask 'spark'
